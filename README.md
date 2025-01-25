@@ -1,10 +1,8 @@
 # python_project_template
 
-[![Github Actions Workflow](https://github.com/DiogoCarapito/python_project_template/actions/workflows/main.yaml/badge.svg)](https://github.com/DiogoCarapito/python_project_template/actions/workflows/main.yaml)
+[![Github Actions Workflow](https://github.com/DiogoCarapito/score2/actions/workflows/main.yaml/badge.svg)](https://github.com/DiogoCarapito/score2/actions/workflows/main.yaml)
 
-Personal python project template
-
-Python version: 3.12
+SCORE2 Algorithm. includes SCORE2-OP and SCORE2-DM
 
 ## cheat sheet
 
