@@ -1,0 +1,10 @@
+[theme]
+base="dark"
+
+[global]
+pageTitle = "SCORE 2 App"
+pageIcon = "🧑‍⚕️"
+
+[browser]
+gatherUsageStats = false
+layout = "wide"
