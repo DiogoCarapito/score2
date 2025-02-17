@@ -8,6 +8,9 @@ black==23.9.1
 
 pandas
 openpyxl
+python-calamine
 
-streamlit
+streamlit >= 1.42.0
 watchdog
+
+colorlog

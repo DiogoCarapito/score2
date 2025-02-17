@@ -1,6 +1,10 @@
 import math
-import numpy as np
-from pandas import isna, notna
+
+# import numpy as np
+from pandas import isna
+
+
+from calcs.unit_conversions import colesterol_mgdl_to_mmol, hba1c_to_mmol_mol
 
 
 def score_type_algorithm(score, age, has_diabetes, cvd):
@@ -172,6 +176,19 @@ def score2_algorithm(
     if has_diabetes and (
         isna(age_at_diagnosis) or isna(hba1c) or isna(gfr) or hba1c > 20 or gfr < 10
     ):
+        return None
+
+    # validate data
+
+    if total_cholesterol < 50 or total_cholesterol > 400:
+        return None
+    if hdl_cholesterol < 10 or hdl_cholesterol > 150:
+        return None
+    if hba1c < 3 or hba1c > 20:
+        return None
+    if gfr < 0 or gfr > 200:
+        return None
+    if systolic_blood_pressure < 50 or systolic_blood_pressure > 300:
         return None
 
     # print("###")
@@ -551,66 +568,66 @@ def score2_algorithm(
     return calibrated_ten_year_risk
 
 
-if __name__ == "__main__":
-    sexo = "Homem"
-    idade = 69
-    tem_diabetes = True
-    idade_diagnostico = 60
-    fumador = True
-    pressao_arterial_sistolica = 150
-    colesterol_total = 300
-    colesterol_hdl = 40
-    hba1c = 12
-    gfr = 30
-    risco_regiao = "Moderate"
-    cvd = False
+# if __name__ == "__main__":
+#     sexo = "Homem"
+#     idade = 69
+#     tem_diabetes = True
+#     idade_diagnostico = 60
+#     fumador = True
+#     pressao_arterial_sistolica = 150
+#     colesterol_total = 300
+#     colesterol_hdl = 40
+#     hba1c = 12
+#     gfr = 30
+#     risco_regiao = "Moderate"
+#     cvd = False
 
-    # sexo = "Mulher"
-    # idade = 40
-    # tem_diabetes = True
-    # idade_diagnostico = 2023
-    # fumador = False
-    # pressao_arterial_sistolica = 120
-    # colesterol_total = 150
-    # colesterol_hdl = 70
-    # hba1c = 6.5
-    # gfr = 90
-    # risco_regiao = "Moderado"
-    # cvd = False
+#     # sexo = "Mulher"
+#     # idade = 40
+#     # tem_diabetes = True
+#     # idade_diagnostico = 2023
+#     # fumador = False
+#     # pressao_arterial_sistolica = 120
+#     # colesterol_total = 150
+#     # colesterol_hdl = 70
+#     # hba1c = 6.5
+#     # gfr = 90
+#     # risco_regiao = "Moderado"
+#     # cvd = False
 
-    score = score2_algorithm(
-        sex=sexo,
-        age=idade,
-        has_diabetes=tem_diabetes,
-        age_at_diagnosis=idade_diagnostico,
-        smoker=fumador,
-        systolic_blood_pressure=pressao_arterial_sistolica,
-        total_cholesterol=colesterol_total,
-        hdl_cholesterol=colesterol_hdl,
-        hba1c=hba1c,
-        gfr=gfr,
-        region_risk=risco_regiao,
-        cvd=cvd,
-    )
+#     score = score2_algorithm(
+#         sex=sexo,
+#         age=idade,
+#         has_diabetes=tem_diabetes,
+#         age_at_diagnosis=idade_diagnostico,
+#         smoker=fumador,
+#         systolic_blood_pressure=pressao_arterial_sistolica,
+#         total_cholesterol=colesterol_total,
+#         hdl_cholesterol=colesterol_hdl,
+#         hba1c=hba1c,
+#         gfr=gfr,
+#         region_risk=risco_regiao,
+#         cvd=cvd,
+#     )
 
-    risco_cv = score2_interpretation(cvd, score, "SCORE2", idade)
+#     risco_cv = score2_interpretation(cvd, score, "SCORE2", idade)
 
-    score_aplicado = score_type_algorithm(score, idade, tem_diabetes, cvd)
+#     score_aplicado = score_type_algorithm(score, idade, tem_diabetes, cvd)
 
-    print("Idade:", idade)
-    print("Sexo:", sexo)
-    print("Diabetes:", tem_diabetes)
-    print("Idade diagnóstico:", idade_diagnostico)
-    print("Fumador:", fumador)
-    print("Pressão arterial sistólica:", pressao_arterial_sistolica)
-    print("Colesterol total:", colesterol_total)
-    print("Colesterol HDL:", colesterol_hdl)
-    print("HbA1c:", hba1c)
-    print("GFR:", gfr)
-    print("Risco região:", risco_regiao)
-    print("CVD:", cvd)
+#     print("Idade:", idade)
+#     print("Sexo:", sexo)
+#     print("Diabetes:", tem_diabetes)
+#     print("Idade diagnóstico:", idade_diagnostico)
+#     print("Fumador:", fumador)
+#     print("Pressão arterial sistólica:", pressao_arterial_sistolica)
+#     print("Colesterol total:", colesterol_total)
+#     print("Colesterol HDL:", colesterol_hdl)
+#     print("HbA1c:", hba1c)
+#     print("GFR:", gfr)
+#     print("Risco região:", risco_regiao)
+#     print("CVD:", cvd)
 
-    print("###")
-    print("Score", score)
-    print("Score aplicado:", score_aplicado)
-    print("Risco CV", risco_cv)
+#     print("###")
+#     print("Score", score)
+#     print("Score aplicado:", score_aplicado)
+#     print("Risco CV", risco_cv)

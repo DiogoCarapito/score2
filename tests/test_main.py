@@ -1,4 +1,4 @@
-from score2 import main
+from SCORE2 import main
 
 
 def test_main():
